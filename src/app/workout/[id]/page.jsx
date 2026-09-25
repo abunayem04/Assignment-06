@@ -134,7 +134,6 @@ export default function WorkoutDetailsPage() {
           <div className="details-actions">
             <button
               onClick={() => addToTodayPlan(workout)}
-              disabled={isAlreadyInPlan || isCapReached}
               className={`btn-add-plan ${isAlreadyInPlan ? "in-plan" : isCapReached ? "disabled" : ""}`}
             >
               {isAlreadyInPlan ? (

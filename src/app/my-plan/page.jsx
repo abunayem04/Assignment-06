@@ -23,7 +23,7 @@ export default function MyPlanPage() {
     isLoaded,
     removeFromTodayPlan,
     removeFromSaved,
-    toggleMarkAsDone,
+    markAsDone,
     addToTodayPlan,
   } = usePlan();
 
@@ -214,28 +214,29 @@ export default function MyPlanPage() {
 
                 {activeTab === "today" ? (
                   <button
-                    onClick={() => toggleMarkAsDone(workout.id)}
+                    onClick={() => markAsDone(workout.id)}
                     className={`btn-done ${workout.isDone ? "completed" : ""}`}
+                    style={workout.isDone ? { cursor: "default" } : {}}
                   >
                     <Check className="w-3.5 h-3.5 stroke-[3]" />
                     <span>{workout.isDone ? "Completed" : "Mark as Done"}</span>
                   </button>
-                ) : isWorkoutInPlan(workout.id) ? (
-                  <button
-                    disabled
-                    className="btn-done completed"
-                    style={{ cursor: "default" }}
-                  >
-                    <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-                    <span>In Plan</span>
-                  </button>
                 ) : (
                   <button
                     onClick={() => addToTodayPlan(workout)}
-                    className="btn-done"
+                    className={`btn-done ${isWorkoutInPlan(workout.id) ? "completed" : ""}`}
                   >
-                    <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
-                    <span>Add to Plan</span>
+                    {isWorkoutInPlan(workout.id) ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 stroke-[2.5]" />
+                        <span>In Plan</span>
+                      </>
+                    ) : (
+                      <>
+                        <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
+                        <span>Add to Plan</span>
+                      </>
+                    )}
                   </button>
                 )}
 

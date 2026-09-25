@@ -46,59 +46,53 @@ export function PlanProvider({ children }) {
   }, [savedWorkouts, isLoaded]);
 
   const addToTodayPlan = (workout) => {
-    if (todayPlan.length >= 5) {
-      toast.error("Cap reached: Maximum 5 lifts allowed for today's plan!");
+    const alreadyExists = todayPlan.some((item) => item.id === workout.id);
+    if (alreadyExists) {
+      toast.error(`${workout.name} is already in today's plan!`, { id: `plan-exists-${workout.id}` });
       return false;
     }
 
-    const alreadyExists = todayPlan.some((item) => item.id === workout.id);
-    if (alreadyExists) {
-      toast.error(`${workout.name} is already in today's plan!`);
+    if (todayPlan.length >= 5) {
+      toast.error("Cap reached: Maximum 5 lifts allowed for today's plan!", { id: "plan-cap" });
       return false;
     }
 
     setTodayPlan((prev) => [...prev, { ...workout, isDone: false }]);
-    toast.success(`${workout.name} added to today's plan!`);
+    toast.success(`${workout.name} added to today's plan!`, { id: `plan-added-${workout.id}` });
     return true;
   };
 
   const addToSaved = (workout) => {
     const alreadySaved = savedWorkouts.some((item) => item.id === workout.id);
     if (alreadySaved) {
-      toast.error(`${workout.name} is already saved!`);
+      toast.error(`${workout.name} is already saved!`, { id: `saved-exists-${workout.id}` });
       return false;
     }
 
     setSavedWorkouts((prev) => [...prev, workout]);
-    toast.success(`${workout.name} saved for later!`);
+    toast.success(`${workout.name} saved for later!`, { id: `saved-added-${workout.id}` });
     return true;
   };
 
   const removeFromTodayPlan = (id) => {
     setTodayPlan((prev) => prev.filter((item) => item.id !== id));
-    toast.success("Workout removed from today's plan");
+    toast.success("Workout removed from today's plan", { id: `remove-plan-${id}` });
   };
 
   const removeFromSaved = (id) => {
     setSavedWorkouts((prev) => prev.filter((item) => item.id !== id));
-    toast.success("Workout removed from saved");
+    toast.success("Workout removed from saved", { id: `remove-saved-${id}` });
   };
 
-  const toggleMarkAsDone = (id) => {
+  const markAsDone = (id) => {
+    const target = todayPlan.find((item) => item.id === id);
+    if (!target) return;
+    if (target.isDone) return;
+
     setTodayPlan((prev) =>
-      prev.map((item) => {
-        if (item.id === id) {
-          const updatedStatus = !item.isDone;
-          if (updatedStatus) {
-            toast.success(`${item.name} marked as completed! 🎉`);
-          } else {
-            toast("Marked as incomplete", { icon: "↩️" });
-          }
-          return { ...item, isDone: updatedStatus };
-        }
-        return item;
-      })
+      prev.map((item) => (item.id === id ? { ...item, isDone: true } : item))
     );
+    toast.success(`${target.name} marked as completed! 🎉`, { id: `done-${id}` });
   };
 
   return (
@@ -111,7 +105,8 @@ export function PlanProvider({ children }) {
         addToSaved,
         removeFromTodayPlan,
         removeFromSaved,
-        toggleMarkAsDone,
+        markAsDone,
+        toggleMarkAsDone: markAsDone,
       }}
     >
       {isLoaded && (

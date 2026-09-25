@@ -1,9 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect } from "react";
-import toast from "react-hot-toast";
-
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 const PlanContext = createContext();
 
@@ -12,6 +10,7 @@ export function PlanProvider({ children }) {
   const [savedWorkouts, setSavedWorkouts] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
+  // load saved data from localstorage on first render
   useEffect(() => {
     const savedPlanData = localStorage.getItem("fitlog_today_plan");
     const savedWorkoutsData = localStorage.getItem("fitlog_saved_workouts");
@@ -103,9 +102,6 @@ export function PlanProvider({ children }) {
     );
   };
 
-  const totalMinutes = todayPlan.reduce((acc, curr) => acc + (Number(curr.duration) || 0), 0);
-  const totalCalories = todayPlan.reduce((acc, curr) => acc + (Number(curr.caloriesBurned) || 0), 0);
-
   return (
     <PlanContext.Provider
       value={{
@@ -117,11 +113,6 @@ export function PlanProvider({ children }) {
         removeFromTodayPlan,
         removeFromSaved,
         toggleMarkAsDone,
-        metrics: {
-          exercises: todayPlan.length,
-          minutes: totalMinutes,
-          calories: totalCalories,
-        },
       }}
     >
       {isLoaded && (
@@ -130,25 +121,9 @@ export function PlanProvider({ children }) {
           toastOptions={{
             duration: 2500,
             style: {
-              background: "#161922",
+              background: "#1a1d24",
               color: "#f3f4f6",
-              border: "1px solid #282f3d",
-              fontSize: "13px",
-              fontWeight: "500",
-              borderRadius: "12px",
-              boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.5)",
-            },
-            success: {
-              iconTheme: {
-                primary: "#ccff00",
-                secondary: "#000000",
-              },
-            },
-            error: {
-              iconTheme: {
-                primary: "#ef4444",
-                secondary: "#ffffff",
-              },
+              borderRadius: "8px",
             },
           }}
         />
@@ -159,9 +134,5 @@ export function PlanProvider({ children }) {
 }
 
 export function usePlan() {
-  const context = useContext(PlanContext);
-  if (!context) {
-    throw new Error("usePlan must be used within a PlanProvider");
-  }
-  return context;
+  return useContext(PlanContext);
 }

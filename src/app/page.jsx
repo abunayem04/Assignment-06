@@ -9,6 +9,7 @@ export default function HomePage() {
   const [workouts, setWorkouts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // fetch data when page loads
   useEffect(() => {
     fetchWorkouts();
   }, []);
@@ -27,35 +28,29 @@ export default function HomePage() {
   };
 
   return (
-    <div className="space-y-12">
-      {/* Hero Section */}
+    <div>
       <Hero />
 
-      {/* The Library Section */}
-      <section id="library" className="scroll-mt-20 space-y-6">
-        
-        {/* Header */}
-        <div className="space-y-1">
-          <h2 className="font-heading text-3xl sm:text-4xl font-black uppercase text-white tracking-wide">
+      {/* workout library section */}
+      <section id="library" style={{ scrollMarginTop: "80px", marginTop: "32px" }}>
+        <div className="section-header">
+          <h2 className="section-title">
             THE LIBRARY
           </h2>
-          <p className="text-gray-400 text-xs sm:text-sm">
+          <p className="section-subtitle">
             Twelve lifts covering every major muscle group.
           </p>
         </div>
 
-        {/* Content Area */}
         {loading ? (
           <LoadingSpinner text="Loading workouts..." />
         ) : (
-          /* 3x4 Grid on large screens */
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="workout-grid">
             {workouts.map((workout) => (
               <WorkoutCard key={workout.id} workout={workout} />
             ))}
           </div>
         )}
-
       </section>
     </div>
   );

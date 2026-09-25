@@ -1,4 +1,3 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -7,19 +6,10 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: {
-        accent: "#ccff00",
-        dark: {
-          bg: "#0d0f12",
-          card: "#16191f",
-          border: "#242933",
-          secondary: "#1f242d"
-        }
-      },
       fontFamily: {
         heading: ["var(--font-oswald)", "sans-serif"],
         sans: ["var(--font-inter)", "sans-serif"],
-      }
+      },
     },
   },
   plugins: [],

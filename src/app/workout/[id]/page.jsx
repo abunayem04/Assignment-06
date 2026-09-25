@@ -65,6 +65,7 @@ export default function WorkoutDetailsPage() {
 
   const isAlreadyInPlan = todayPlan.some((item) => item.id === workout.id);
   const isAlreadySaved = savedWorkouts.some((item) => item.id === workout.id);
+  const isCapReached = todayPlan.length >= 5 && !isAlreadyInPlan;
 
   const specs = [
     { label: "EQUIPMENT", value: workout.equipment },
@@ -133,12 +134,18 @@ export default function WorkoutDetailsPage() {
           <div className="details-actions">
             <button
               onClick={() => addToTodayPlan(workout)}
-              className={`btn-add-plan ${isAlreadyInPlan ? "in-plan" : ""}`}
+              disabled={isAlreadyInPlan || isCapReached}
+              className={`btn-add-plan ${isAlreadyInPlan ? "in-plan" : isCapReached ? "disabled" : ""}`}
             >
               {isAlreadyInPlan ? (
                 <>
                   <CheckCircle2 className="w-4 h-4" />
                   <span>In Today's Plan</span>
+                </>
+              ) : isCapReached ? (
+                <>
+                  <PlusCircle className="w-4 h-4 stroke-[2.5]" />
+                  <span>Plan Full (Max 5)</span>
                 </>
               ) : (
                 <>

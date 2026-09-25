@@ -10,7 +10,6 @@ export function PlanProvider({ children }) {
   const [savedWorkouts, setSavedWorkouts] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // load saved data from localstorage on first render
   useEffect(() => {
     const savedPlanData = localStorage.getItem("fitlog_today_plan");
     const savedWorkoutsData = localStorage.getItem("fitlog_saved_workouts");

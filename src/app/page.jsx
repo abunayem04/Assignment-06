@@ -9,7 +9,6 @@ export default function HomePage() {
   const [workouts, setWorkouts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // fetch data when page loads
   useEffect(() => {
     fetchWorkouts();
   }, []);
@@ -31,7 +30,6 @@ export default function HomePage() {
     <div>
       <Hero />
 
-      {/* workout library section */}
       <section id="library" style={{ scrollMarginTop: "80px", marginTop: "32px" }}>
         <div className="section-header">
           <h2 className="section-title">

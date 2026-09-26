@@ -9,8 +9,11 @@ import logoImg from "@/assets/logo.png";
 import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
+  // Mobile responsive menu toggle korar state
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+
+  // Context theke plan and saved data er length nicchi badge count er jonno
   const { todayPlan, savedWorkouts } = usePlan();
 
   return (

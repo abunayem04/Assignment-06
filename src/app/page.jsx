@@ -11,10 +11,12 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState("duration");
 
+  // Page load hole API theke workouts load korbo
   useEffect(() => {
     fetchWorkouts();
   }, []);
 
+  // API theke all workouts fetch korar function
   const fetchWorkouts = async () => {
     try {
       setLoading(true);
@@ -28,6 +30,7 @@ export default function HomePage() {
     }
   };
 
+  // Sort dropdown onujayi workouts sort kora
   const sortedWorkouts = [...workouts].sort((a, b) => {
     if (sortBy === "duration") {
       return (a.duration || 0) - (b.duration || 0);

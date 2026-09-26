@@ -11,17 +11,17 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState("duration");
 
-  // Page load hole API theke workouts load korbo
   useEffect(() => {
     fetchWorkouts();
   }, []);
 
-  // API theke all workouts fetch korar function
+  // API theke workouts anchi
   const fetchWorkouts = async () => {
     try {
       setLoading(true);
       const res = await fetch("https://api.abcz.workers.dev/api/fitlog");
       const data = await res.json();
+      // console.log(data); // test er jonno rakha chilo
       setWorkouts(data);
     } catch (error) {
       console.error("Failed to fetch workouts:", error);
@@ -30,7 +30,6 @@ export default function HomePage() {
     }
   };
 
-  // Sort dropdown onujayi workouts sort kora
   const sortedWorkouts = [...workouts].sort((a, b) => {
     if (sortBy === "duration") {
       return (a.duration || 0) - (b.duration || 0);
@@ -65,7 +64,6 @@ export default function HomePage() {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                aria-label="Sort library workouts by"
                 className="sort-select"
               >
                 <option value="duration">Duration</option>

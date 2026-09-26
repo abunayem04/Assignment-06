@@ -6,11 +6,12 @@ import toast, { Toaster } from "react-hot-toast";
 const PlanContext = createContext();
 
 export function PlanProvider({ children }) {
+  // today er plan ar saved workouts er list
   const [todayPlan, setTodayPlan] = useState([]);
   const [savedWorkouts, setSavedWorkouts] = useState([]);
+  // localStorage theke data load hoye gache kina janbo eita die
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Component mount hole LocalStorage theke ager data load kortesi
   useEffect(() => {
     const savedPlanData = localStorage.getItem("fitlog_today_plan");
     const savedWorkoutsData = localStorage.getItem("fitlog_saved_workouts");
@@ -34,30 +35,29 @@ export function PlanProvider({ children }) {
     setIsLoaded(true);
   }, []);
 
-  // todayPlan state change hole localStorage e save kora
+  // todayPlan change hoile localStorage update korbo
   useEffect(() => {
     if (isLoaded) {
       localStorage.setItem("fitlog_today_plan", JSON.stringify(todayPlan));
     }
   }, [todayPlan, isLoaded]);
 
-  // savedWorkouts state change hole localStorage e save kora
+  // savedWorkouts change hoile localStorage update korbo
   useEffect(() => {
     if (isLoaded) {
       localStorage.setItem("fitlog_saved_workouts", JSON.stringify(savedWorkouts));
     }
   }, [savedWorkouts, isLoaded]);
 
-  // Today's plan e workout add kora
   const addToTodayPlan = (workout) => {
-    // 1. Already plan e ache kina check
+    // already ache kina check
     const alreadyExists = todayPlan.some((item) => item.id === workout.id);
     if (alreadyExists) {
       toast.error(`${workout.name} is already in today's plan!`);
       return false;
     }
 
-    // 2. Maximum 5 ta workout er cap check
+    // 5 er beshi add korte dibo na
     if (todayPlan.length >= 5) {
       toast.error("Cap reached: Maximum 5 lifts allowed for today's plan!");
       return false;
@@ -68,7 +68,6 @@ export function PlanProvider({ children }) {
     return true;
   };
 
-  // Saved list e workout add kora
   const addToSaved = (workout) => {
     const alreadySaved = savedWorkouts.some((item) => item.id === workout.id);
     if (alreadySaved) {
@@ -81,22 +80,20 @@ export function PlanProvider({ children }) {
     return true;
   };
 
-  // Plan theke item remove kora
   const removeFromTodayPlan = (id) => {
     setTodayPlan((prev) => prev.filter((item) => item.id !== id));
     toast.success("Workout removed from today's plan");
   };
 
-  // Saved theke item remove kora
   const removeFromSaved = (id) => {
     setSavedWorkouts((prev) => prev.filter((item) => item.id !== id));
     toast.success("Workout removed from saved");
   };
 
-  // Workout completed/done mark kora
   const markAsDone = (id) => {
     const target = todayPlan.find((item) => item.id === id);
     if (!target) return;
+    // jodi already done hole return
     if (target.isDone) return;
 
     setTodayPlan((prev) =>
@@ -116,7 +113,6 @@ export function PlanProvider({ children }) {
         removeFromTodayPlan,
         removeFromSaved,
         markAsDone,
-        toggleMarkAsDone: markAsDone,
       }}
     >
       {isLoaded && (

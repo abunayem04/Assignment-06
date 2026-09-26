@@ -20,14 +20,12 @@ export default function WorkoutDetailsPage() {
   const [loading, setLoading] = useState(true);
   const [imgSrc, setImgSrc] = useState("/hero-gym.jpg");
 
-  // id change hole ba component mount hole data load korbo
   useEffect(() => {
     if (id) {
       fetchWorkoutDetails();
     }
   }, [id]);
 
-  // API theke specific workout er details data anchi
   const fetchWorkoutDetails = async () => {
     try {
       setLoading(true);
@@ -66,12 +64,10 @@ export default function WorkoutDetailsPage() {
     );
   }
 
-  // check kortesi already plan ba saved list e ache kina
   const isAlreadyInPlan = todayPlan.some((item) => item.id === workout.id);
   const isAlreadySaved = savedWorkouts.some((item) => item.id === workout.id);
   const isCapReached = todayPlan.length >= 5 && !isAlreadyInPlan;
 
-  // UI te details spec dekhate array banano holo
   const specs = [
     { label: "EQUIPMENT", value: workout.equipment },
     { label: "DIFFICULTY", value: workout.difficulty },

@@ -34,10 +34,8 @@ export default function MyPlanPage() {
     return <LoadingSpinner text="Loading workouts…" />;
   }
 
-  // Active tab (Today's plan ba Saved workouts) onujayi list select kora
   const currentList = activeTab === "today" ? todayPlan : savedWorkouts;
 
-  // Top metric stats: total exercises, minutes and calories calculate kora
   const currentExercises = currentList.length;
   const currentMinutes = currentList.reduce(
     (acc, curr) => acc + (Number(curr.duration) || 0),
@@ -48,7 +46,6 @@ export default function MyPlanPage() {
     0
   );
 
-  // Selected option (duration/calories/rating) onujayi sort kora
   const sortedList = [...currentList].sort((a, b) => {
     if (sortBy === "duration") {
       return (a.duration || 0) - (b.duration || 0);
@@ -62,7 +59,6 @@ export default function MyPlanPage() {
     return 0;
   });
 
-  // Saved list theke item ta already plan e ache kina check korar helper
   const isWorkoutInPlan = (workoutId) => {
     return todayPlan.some((item) => item.id === workoutId);
   };
@@ -129,7 +125,6 @@ export default function MyPlanPage() {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              aria-label="Sort plan items by"
               className="sort-select"
             >
               <option value="duration">Duration</option>

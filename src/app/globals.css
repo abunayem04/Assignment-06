@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* === base/global styles === */
 :root {
   color-scheme: dark;
 }
@@ -127,6 +128,7 @@ body {
   border-radius: 9999px;
 }
 
+/* === navbar styles === */
 .navbar {
   position: sticky;
   top: 0;
@@ -401,6 +403,7 @@ body {
   }
 }
 
+/* === hero section === */
 .hero-section {
   position: relative;
   background-color: #14171d;
@@ -496,6 +499,7 @@ body {
   overflow: hidden;
 }
 
+/* === workout grid and card === */
 .workout-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -584,6 +588,7 @@ body {
   gap: 6px;
 }
 
+/* === workout details page === */
 .details-container {
   padding: 16px 0;
   display: flex;
@@ -833,6 +838,7 @@ body {
   color: #ccff00;
 }
 
+/* === my plan page === */
 .plan-page {
   padding: 16px 0;
   display: flex;
@@ -1206,6 +1212,7 @@ body {
   background-color: rgba(248, 113, 113, 0.1);
 }
 
+/* === footer === */
 .footer {
   margin-top: auto;
   border-top: 1px solid #1f242d;

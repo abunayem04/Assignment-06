@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { usePlan } from "@/context/PlanContext";
@@ -10,21 +10,24 @@ import { ArrowLeft, Bookmark, PlusCircle, CheckCircle2 } from "lucide-react";
 
 export default function WorkoutDetailsPage() {
   const router = useRouter();
+  const params = useParams();
+  const id = params?.id;
+
+  // context theke state and actions nicchi
   const { addToTodayPlan, addToSaved, todayPlan, savedWorkouts } = usePlan();
 
   const [workout, setWorkout] = useState(null);
   const [loading, setLoading] = useState(true);
   const [imgSrc, setImgSrc] = useState("/hero-gym.jpg");
 
-  const params = require("next/navigation").useParams();
-  const id = params.id;
-
+  // id change hole ba component mount hole data load korbo
   useEffect(() => {
     if (id) {
       fetchWorkoutDetails();
     }
   }, [id]);
 
+  // API theke specific workout er details data anchi
   const fetchWorkoutDetails = async () => {
     try {
       setLoading(true);
@@ -63,10 +66,12 @@ export default function WorkoutDetailsPage() {
     );
   }
 
+  // check kortesi already plan ba saved list e ache kina
   const isAlreadyInPlan = todayPlan.some((item) => item.id === workout.id);
   const isAlreadySaved = savedWorkouts.some((item) => item.id === workout.id);
   const isCapReached = todayPlan.length >= 5 && !isAlreadyInPlan;
 
+  // UI te details spec dekhate array banano holo
   const specs = [
     { label: "EQUIPMENT", value: workout.equipment },
     { label: "DIFFICULTY", value: workout.difficulty },

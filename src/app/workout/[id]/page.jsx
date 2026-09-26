@@ -13,7 +13,7 @@ export default function WorkoutDetailsPage() {
   const params = useParams();
   const id = params?.id;
 
-  // context theke state and actions nicchi
+
   const { addToTodayPlan, addToSaved, todayPlan, savedWorkouts } = usePlan();
 
   const [workout, setWorkout] = useState(null);

@@ -15,13 +15,13 @@ export default function HomePage() {
     fetchWorkouts();
   }, []);
 
-  // API theke workouts anchi
+ 
   const fetchWorkouts = async () => {
     try {
       setLoading(true);
       const res = await fetch("https://api.api-store.workers.dev/api/fitlog");
       const data = await res.json();
-      // console.log(data); // test er jonno rakha chilo
+  
       setWorkouts(data);
     } catch (error) {
       console.error("Failed to fetch workouts:", error);
@@ -30,7 +30,7 @@ export default function HomePage() {
     }
   };
 
-  // sort dropdown onujayi workouts sort kora
+
   const sortedWorkouts = [...workouts].sort((a, b) => {
     if (sortBy === "duration") {
       return (a.duration || 0) - (b.duration || 0);
@@ -41,7 +41,7 @@ export default function HomePage() {
     if (sortBy === "rating") {
       return (b.rating || 0) - (a.rating || 0);
     }
-    // default: API er order onujayi (id by serial 1,2,3...)
+    
     return (a.id || 0) - (b.id || 0);
   });
 

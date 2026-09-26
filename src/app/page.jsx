@@ -9,7 +9,7 @@ import { ChevronDown } from "lucide-react";
 export default function HomePage() {
   const [workouts, setWorkouts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [sortBy, setSortBy] = useState("duration");
+  const [sortBy, setSortBy] = useState("default");
 
   useEffect(() => {
     fetchWorkouts();
@@ -30,6 +30,7 @@ export default function HomePage() {
     }
   };
 
+  // sort dropdown onujayi workouts sort kora
   const sortedWorkouts = [...workouts].sort((a, b) => {
     if (sortBy === "duration") {
       return (a.duration || 0) - (b.duration || 0);
@@ -40,7 +41,8 @@ export default function HomePage() {
     if (sortBy === "rating") {
       return (b.rating || 0) - (a.rating || 0);
     }
-    return 0;
+    // default: API er order onujayi (id by serial 1,2,3...)
+    return (a.id || 0) - (b.id || 0);
   });
 
   return (
@@ -66,6 +68,7 @@ export default function HomePage() {
                 onChange={(e) => setSortBy(e.target.value)}
                 className="sort-select"
               >
+              <option value="default">Default</option>
                 <option value="duration">Duration</option>
                 <option value="calories">Calories</option>
                 <option value="rating">Rating</option>

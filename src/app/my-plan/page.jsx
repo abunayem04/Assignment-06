@@ -28,7 +28,7 @@ export default function MyPlanPage() {
   } = usePlan();
 
   const [activeTab, setActiveTab] = useState("today");
-  const [sortBy, setSortBy] = useState("duration");
+  const [sortBy, setSortBy] = useState("default");
 
   if (!isLoaded) {
     return <LoadingSpinner text="Loading workouts…" />;
@@ -56,7 +56,8 @@ export default function MyPlanPage() {
     if (sortBy === "rating") {
       return (b.rating || 0) - (a.rating || 0);
     }
-    return 0;
+    // default: id anusare serial order
+    return (a.id || 0) - (b.id || 0);
   });
 
   const isWorkoutInPlan = (workoutId) => {
@@ -127,6 +128,7 @@ export default function MyPlanPage() {
               onChange={(e) => setSortBy(e.target.value)}
               className="sort-select"
             >
+              <option value="default">Default</option>
               <option value="duration">Duration</option>
               <option value="calories">Calories</option>
               <option value="rating">Rating</option>

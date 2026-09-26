@@ -59,22 +59,27 @@ body {
   flex: 1;
 }
 
-.btn-primary {
+/* btn-primary and btn-secondary er common styles ektu theke diyechi */
+.btn-primary,
+.btn-secondary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background-color: var(--clr-accent);
-  color: #000000;
-  font-weight: 700;
   font-size: 13px;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  padding: 12px 24px;
   border-radius: 12px;
-  border: none;
   cursor: pointer;
   transition: var(--transition);
+}
+
+.btn-primary {
+  background-color: var(--clr-accent);
+  color: var(--clr-black);
+  border: none;
+  padding: 12px 24px;
   box-shadow: 0 4px 14px rgba(204, 255, 0, 0.15);
 }
 
@@ -88,26 +93,16 @@ body {
 }
 
 .btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
   background-color: var(--clr-bg-card);
   color: #e5e7eb;
   border: 1px solid #2c3340;
   font-weight: 600;
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
   padding: 12px 20px;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: var(--transition);
 }
 
 .btn-secondary:hover {
   border-color: var(--clr-text-muted);
-  color: #ffffff;
+  color: var(--clr-white);
 }
 
 .section-header {
@@ -786,23 +781,28 @@ body {
   }
 }
 
-.btn-add-plan {
-  flex: 1;
+/* btn-add-plan and btn-save-plan shared styles */
+.btn-add-plan,
+.btn-save-plan {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background-color: var(--clr-accent);
-  color: #000000;
   font-weight: 700;
   font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   padding: 14px 24px;
   border-radius: 12px;
-  border: none;
   cursor: pointer;
   transition: var(--transition);
+}
+
+.btn-add-plan {
+  flex: 1;
+  background-color: var(--clr-accent);
+  color: var(--clr-black);
+  border: none;
 }
 
 .btn-add-plan:hover {
@@ -825,26 +825,14 @@ body {
 }
 
 .btn-save-plan {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
   background-color: var(--clr-bg-card);
   color: #e5e7eb;
   border: 1px solid #2c3340;
-  font-weight: 700;
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 14px 24px;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: var(--transition);
 }
 
 .btn-save-plan:hover {
   border-color: var(--clr-text-muted);
-  color: #ffffff;
+  color: var(--clr-white);
 }
 
 .btn-save-plan.saved {

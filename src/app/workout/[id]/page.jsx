@@ -29,7 +29,7 @@ export default function WorkoutDetailsPage() {
   const fetchWorkoutDetails = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`https://api.abcz.workers.dev/api/fitlog/${id}`);
+      const res = await fetch(`https://api.api-store.workers.dev/api/fitlog/${id}`);
       if (!res.ok) {
         throw new Error("Workout not found");
       }

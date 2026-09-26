@@ -19,7 +19,7 @@ export default function HomePage() {
   const fetchWorkouts = async () => {
     try {
       setLoading(true);
-      const res = await fetch("https://api.abcz.workers.dev/api/fitlog");
+      const res = await fetch("https://api.api-store.workers.dev/api/fitlog");
       const data = await res.json();
       // console.log(data); // test er jonno rakha chilo
       setWorkouts(data);
